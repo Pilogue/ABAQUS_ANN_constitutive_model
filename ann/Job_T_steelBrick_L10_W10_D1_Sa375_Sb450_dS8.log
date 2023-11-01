@@ -1,0 +1,22 @@
+Analysis initiated from SIMULIA established products
+Abaqus JOB Job_T_steelBrick_L10_W10_D1_Sa375_Sb450_dS8
+Abaqus 2022
+Abaqus License Manager checked out the following licenses:
+Abaqus/Standard checked out 12 tokens from Flexnet server LAPTOP-LDUUL3JB.
+<9987 out of 9999 licenses remain available>.
+Begin Analysis Input File Processor
+2023/4/25 23:14:55
+Run pre.exe
+2023/4/25 23:15:03
+End Analysis Input File Processor
+Begin Abaqus/Standard Analysis
+2023/4/25 23:15:03
+Run standard.exe
+2023/4/25 23:15:18
+End Abaqus/Standard Analysis
+Begin SIM Wrap-up
+2023/4/25 23:15:20
+Run SMASimUtility.exe
+2023/4/25 23:15:20
+End SIM Wrap-up
+Abaqus JOB Job_T_steelBrick_L10_W10_D1_Sa375_Sb450_dS8 COMPLETED
