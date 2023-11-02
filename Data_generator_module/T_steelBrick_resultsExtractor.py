@@ -11,7 +11,11 @@ odbName = os.getcwd()+'\\'+jobname+'.odb'
 odbObject = session.openOdb(name=odbName)
 
 
+<<<<<<< HEAD
 # region analyse dimensions through the jobname
+=======
+#region analyse dimensions through the jobname
+>>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 locL, locW, locD = jobname.find('L'), jobname.find('W'), jobname.find('D')      # find key letters indicating length, width, depth
 dimLst, j = ['', '', ''], 0
 for loc in [locL, locW, locD]:
@@ -25,25 +29,43 @@ for loc in [locL, locW, locD]:
         dimLst[j] = int(str(dimLst[j])+k)
     j += 1
 length, width, depth = [float(i) for i in dimLst]
+<<<<<<< HEAD
 # endregion
 
 # region plot deformed state
+=======
+#endregion
+
+#region plot deformed state
+>>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 viewport_deformed = session.viewports['Viewport: 1']
 viewport_deformed.setValues(displayedObject=odbObject)
 viewport_deformed.odbDisplay.display.setValues(plotState=(UNDEFORMED, DEFORMED, ))
 viewport_deformed.odbDisplay.commonOptions.setValues(nodeLabels=ON)
 viewport_deformed.odbDisplay.commonOptions.setValues(elemLabels=ON)
 viewport_deformed.setValues(origin=(0.0, 0.0))
+<<<<<<< HEAD
 # endregion
 
 # region label relevant node sets
+=======
+#endregion
+
+#region label relevant node sets
+>>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 setBottom   = odbObject.rootAssembly.nodeSets['EDGE_BOTTOM']
 setLeft     = odbObject.rootAssembly.nodeSets['EDGE_LEFT']
 setTop      = odbObject.rootAssembly.nodeSets['EDGE_TOP']
 setRight    = odbObject.rootAssembly.nodeSets['EDGE_RIGHT']
+<<<<<<< HEAD
 # endregion
 
 # region Extract field outputs and write to output file
+=======
+#endregion
+
+#region Extract field outputs and write to output file
+>>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 reportFileName = os.getcwd()+'\\'+jobname.strip('Job_')+'.txt'
 try:
     os.remove(reportFileName)

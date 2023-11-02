@@ -234,7 +234,11 @@ currentModel.DisplacementBC('pin', createStepName='Initial', u1 = 0., u2 = 0.,
 #region create job
 mdb.Job(name='Job_'+modelName, model=modelName, type=ANALYSIS, explicitPrecision=SINGLE, nodalOutputPrecision=SINGLE,
         description = 'Analysis of '+modelName, parallelizationMethodExplicit=DOMAIN, multiprocessingMode=DEFAULT,
+<<<<<<< HEAD
         userSubroutine='', numCpus=4, numDomains=4, numGPUs=0, memory=70, memoryUnits=PERCENTAGE, echoPrint=OFF, modelPrint=OFF,
+=======
+        userSubroutine='', numCpus=5, numDomains=5, numGPUs=0, memory=70, memoryUnits=PERCENTAGE, echoPrint=OFF, modelPrint=OFF,
+>>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
         contactPrint=OFF, historyPrint=OFF)
 #endregion
 

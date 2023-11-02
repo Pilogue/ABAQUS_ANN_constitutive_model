@@ -39,8 +39,13 @@ session.viewports['Viewport: 1'].setValues(displayedObject = None)      # set vi
 #endregion
 
 #region parameter inputs
+<<<<<<< HEAD
 path = 'E:/piloguechin/pyproject/ANN_UT/Data_generator_module/'
 currentfilename = 'T_compBrick_main.py'
+=======
+path = 'C:/Users/tom/Documents/AQS_models/'
+currentfilename = 'T_compBrick_2_2_3_main.py'
+>>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 materialChoice = 'Composite_boyang1'
 
 lengths  = (10,)                 # [mm] lengths of panel to be considered, y-direction
