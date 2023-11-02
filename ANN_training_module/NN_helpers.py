@@ -1,16 +1,11 @@
 
-<<<<<<< HEAD
 # region import modules
-=======
-#region import modules
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 import numpy as np
 import matplotlib.pyplot as plt
 from keras.models import Model, Sequential
 import keras
 from keras.layers import Dense, Input, Concatenate, Lambda
 from keras.utils import plot_model
-<<<<<<< HEAD
 import pandas as pd
 import warnings
 import sys
@@ -19,17 +14,6 @@ from keras.utils import plot_model
 
 np.set_printoptions(threshold=sys.maxsize)  # it was threshold=np.nan in the bracket
 # endregion
-=======
-import tensorflow as tf
-import os
-from tensorflow import set_random_seed
-import pandas as pd
-import random as rn
-import warnings
-
-np.set_printoptions(threshold=np.nan)
-#endregion
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 
 
 # =---------------------------------------------------------------------------------------------------
@@ -163,11 +147,7 @@ def NNpredict(model, dataArr_in, normalisationParams, keys_in, keys_inc, keys_ou
     delta[keys_inc] = dataArr_out[keys_inc]
     delta[keys_out] = delta_out
 
-<<<<<<< HEAD
     # region update damage parameter
-=======
-    #region update damage parameter
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
     # damageParameter_new = damageParameter_old * (epsilon_i / sigma_i) / (epsilon_i+1 / sigma_i+1)
     damageKeyLst = [key for key in dataArr_out.keys() if 'Damage' in key]
     for i_key in range(len(damageKeyLst)):
@@ -185,11 +165,7 @@ def NNpredict(model, dataArr_in, normalisationParams, keys_in, keys_inc, keys_ou
     warnings.filterwarnings("ignore")                               # suppress annoying and invalid warning in next line
     if len(damageKeyLst)>0: dataArr_out.loc[:, damageKeyLst] = 0.   # reset damage variable to avoid summing them in the next step
     warnings.filterwarnings("default")                              # display warnings again
-<<<<<<< HEAD
     # endregion
-=======
-    #endregion
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 
     # update stress/strain states in output dataframe
     for key in keys_change:
@@ -313,21 +289,12 @@ def stressStrainToForceDisplacement(dsigma, depsilon, dims):
 def computeKfromNN(model, state, normparams, keys_in, network_geometry, n_dim):
 
     # find all required ingredients
-<<<<<<< HEAD
     S_sigma = normparams.loc['max', 'Sigma_1']      # normalize ratio to get -1 < sigma_NN < 1 by: sigma_NN = sigma/S_sigma
     S_epsilon = normparams.loc['max', 'Epsilon_1']  # See above: -1 < (epsilon_NN = epsilon/S_epsilon) < 1
     beta = 1.                                       # tanh parameter. not used
     NB = model.layers[1].input_shape[1]             # length of hidden layer 1
     NC = model.layers[2].input_shape[1]             # length of hidden layer 2
     sigma_NN_i1 = model.predict(state[keys_in])[0]  # network output (normalised)
-=======
-    S_sigma = normparams.loc['max', 'Sigma_1']     # normalize ratio to get -1 < sigma_NN < 1 by: sigma_NN = sigma/S_sigma
-    S_epsilon = normparams.loc['max', 'Epsilon_1'] # See above: -1 < (epsilon_NN = epsilon/S_epsilon) < 1
-    beta = 1.                                      # tanh parameter. not used
-    NB = model.layers[1].input_shape[1]            # length of hidden layer 1
-    NC = model.layers[2].input_shape[1]            # length of hidden layer 2
-    sigma_NN_i1 = model.predict(state[keys_in])[0] # network output (normalised)
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 
     # weight matrices
     W = getNetworkWeights(model)
@@ -481,11 +448,7 @@ def createUMAT(fname, matname, model, normalisationParams, n_dim, solver = 'seca
 
     f = open(fname, 'w')
 
-<<<<<<< HEAD
     # region frontmatter
-=======
-    #region frontmatter
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 
     # include external modules
     f.write('!****************************************!\n'
@@ -514,15 +477,9 @@ def createUMAT(fname, matname, model, normalisationParams, n_dim, solver = 'seca
             '  DDSDDT(NTENS), DRPLDE(NTENS), STRAN(NTENS), DSTRAN(NTENS),'+
             '  PREDEF(1), DPRED(1), PROPS(NPROPS), COORDS(3), DROT(3, 3),'+
             '  DFGRD0(3, 3), DFGRD1(3, 3)\n\n')
-<<<<<<< HEAD
     # endregion
 
     # region variable declaration
-=======
-    #endregion
-
-    #region variable declaration
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
     f.write('! initialize algorithm variables\n'
             '  ! fixed variables: S_sigma, S_epsilon, beta, NB, NC, ND, NE, w_BA, w_CB, w_DC, w_ED, w_FE \n' +
             '  ! state dependent variables: sigma_NN_i1, B, C, D, E\n')
@@ -538,15 +495,9 @@ def createUMAT(fname, matname, model, normalisationParams, n_dim, solver = 'seca
             '  real(DP), dimension ({}, {})             :: w_final\n'.format(w_final.shape[0], w_final.shape[1]) +
             '  real(DP), dimension (:,:), allocatable   :: w_CB, b_CB, w_DC, b_DC, w_ED, b_ED\n'
             '  real(DP), dimension (:,:), allocatable   :: D, E, x, net_input, output\n\n')
-<<<<<<< HEAD
     # endregion
 
     # region fixed variable assignment
-=======
-    #endregion
-
-    #region fixed variable assignment
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
     f.write('  ! fixed variable assignment\n')
     f.write('  CMNAME = "{}"\n  n_dim = 3\n'.format(matname))
     f.write('  S_sigma = {}\n'.format(normalisationParams.loc['max','Sigma_1']))
@@ -557,30 +508,18 @@ def createUMAT(fname, matname, model, normalisationParams, n_dim, solver = 'seca
     if W.shape[0] >= 3: f.write('  NC = {}\n'.format(model.layers[2].input_shape[1]))
     if W.shape[0] >= 4: f.write('  ND = {}\n'.format(model.layers[3].input_shape[1]))
     if W.shape[0] >= 5: f.write('  NE = {}\n'.format(model.layers[4].input_shape[1]))
-<<<<<<< HEAD
     # endregion
 
     # region state dependent variable assignment
-=======
-    #endregion
-
-    #region state dependent variable assignment
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
     f.write('  ! state dependent variable assignment\n'+
             '  do i = 1, n_dim\n'+
             '    network_input(i,1) = STRESS(i)/S_sigma\n'+
             '    network_input(i+n_dim,1) = STRAN(i)/S_epsilon\n'+
             '    network_input(i+n_dim*2,1) = DSTRAN(i)/S_depsilon\n'+
             '  end do\n\n')
-<<<<<<< HEAD
     # endregion
 
     # region weight matrices
-=======
-    #endregion
-
-    #region weight matrices
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
     f.write('  ! ---------------------------\n'+
             '  ! Weight and bias definitions\n'+
             '  ! ---------------------------\n\n')
@@ -608,15 +547,9 @@ def createUMAT(fname, matname, model, normalisationParams, n_dim, solver = 'seca
     f.write('\n  ! define bias of output layer\n')
     f.write('  b_final(:,1) = {}\n'.format(ar2str(b_final)))
 
-<<<<<<< HEAD
     # endregion
 
     # region compute intermediate values of neural network
-=======
-    #endregion
-
-    #region compute intermediate values of neural network
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
     f.write('\n  ! ---------------------------\n'+
             '  ! Neural network calculations\n'+
             '  ! ---------------------------\n\n'+
@@ -689,15 +622,9 @@ def createUMAT(fname, matname, model, normalisationParams, n_dim, solver = 'seca
             '  deallocate(output)\n'+
             '  deallocate(x)\n'+
             '  deallocate(net_input)')
-<<<<<<< HEAD
     # endregion
 
     # region compute stiffness matrix
-=======
-    #endregion
-
-    #region compute stiffness matrix
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 
     if solver == 'hashash':
         f.write('\n\n  ! Stiffness matrix calculation\n')
@@ -780,15 +707,9 @@ def createUMAT(fname, matname, model, normalisationParams, n_dim, solver = 'seca
                 '    end do\n'+
                 '  end do\n')
     else: raise ModuleNotFoundError('Solver type not implemented')
-<<<<<<< HEAD
     # endregion
 
     # region backmatter
-=======
-    #endregion
-
-    #region backmatter
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
     f.write('  ! ---------------------------------------------\n'+
             '  ! Pass internal variables to subroutine outputs\n'+
             '  ! ---------------------------------------------\n'+
@@ -797,15 +718,9 @@ def createUMAT(fname, matname, model, normalisationParams, n_dim, solver = 'seca
     f.write('end subroutine umat\n')
 
     f.close()
-<<<<<<< HEAD
     # endregion
 
     # region cap lines that are too long
-=======
-    #endregion
-
-    #region cap lines that are too long
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
     f = open(fname)
     lines = f.readlines()
     i = 0
@@ -821,20 +736,12 @@ def createUMAT(fname, matname, model, normalisationParams, n_dim, solver = 'seca
     for line in lines:
         f.write(line)
     f.close()
-<<<<<<< HEAD
     # endregion
-=======
-    #endregion
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 
     return None
 
 
-<<<<<<< HEAD
 # region miscellaneous stuff
-=======
-#region miscellaneous stuff
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 # -------------------
 
 # helper function to format plot
@@ -885,9 +792,5 @@ def ReLu(x): return x * (x > 0)
 def tanh(x): return (np.exp(x)-np.exp(-x))/(np.exp(x)+np.exp(-x))
 
 # -------------------
-<<<<<<< HEAD
 # endregion
 
-=======
-#endregion
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8

@@ -6,7 +6,7 @@
 # Includes shear
 # =================================
 
-<<<<<<< HEAD
+
 # region import modules
 from NN_helpers import *
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"   # don't run on GPU.. ONLY FOR SMALL NETWORKS WITH LESS THAN 100 NODES!
@@ -19,21 +19,6 @@ tic = time.time()
 
 # data        # F:/pyproject/ANN_UT/ANN_training_module/data_compBrick_2D
 path        = 'E:/piloguechin/pyproject/ANN_UT/ANN_training_module/data_compBrick_2D'           # path where data is to be found
-=======
-#region import modules
-import os
-from NN_helpers import *
-os.environ["CUDA_VISIBLE_DEVICES"]="-1"   # don't run on GPU.. ONLY FOR SMALL NETWORKS WITH LESS THAN 100 NODES!
-import time
-
-tic = time.time()
-#endregion
-
-#region ======== SET PARAMETERS =========
-
-# data
-path        = 'C:/Users/tom/Documents/ANN_models/data_compBrick_2D_2/alldata_3'           # path were data is to be found
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 filename    = 'T_compBrick'                 # if multiple files are to be imported, only provide common
                                             # part of the name.
 
@@ -58,19 +43,11 @@ layer_def = [[60, 'relu'], [60, 'relu'], [None, 'tanh']]  # sequence of activati
 
 # set optimizer type and parameters. To change these, check https://keras.io/optimizers/
 learn_rate, decay, eps = 8e-3, 8e-3, 1e-8
-<<<<<<< HEAD
 optimFunc = keras.optimizers.Nadam(lr=learn_rate, beta_1=0.95, beta_2=0.999, epsilon=eps)  #抽出来" , schedule_decay=decay"
 lossFunc = 'mean_absolute_error'    # logcosh    # mean_absolute_error
 
 # Sets weight initiation values of each layer. To change these, check https://keras.io/initializers/
 kernel_initializer = 'lecun_normal'  # 'glorot_normal' #'random_uniform' # lecun_normal
-=======
-optimFunc = keras.optimizers.Nadam(lr=learn_rate, beta_1=0.95, beta_2=0.999, epsilon=eps, schedule_decay=decay)
-lossFunc = 'mean_absolute_error'    # logcosh    # mean_absolute_error
-
-# Sets weight initiation values of each layer. To change these, check https://keras.io/initializers/
-kernel_initializer = 'lecun_normal' #'glorot_normal' #'random_uniform' # lecun_normal
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 bias_initializer = 'random_uniform'
 
 # data parameters: set the maximum and minimum stress to which the normalisation of in and output data is performed
@@ -81,15 +58,9 @@ dstrainNorm_maxmin = np.array([[.004, -0.004]]).T
 damageParam_maxmin = np.array([[1., -1.]]).T
 
 n_epochs, n_batch = 20000, 100000      # training parameters; epoch count and number of data points per batch
-<<<<<<< HEAD
 # endregion
 
 # region import data
-=======
-#endregion
-
-#region import data
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 pathFileLst = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]    # total list of files in path
 fileLst = []                                # filtered list of output files in path
 for i in range(len(pathFileLst)):
@@ -140,15 +111,9 @@ for key in keys:
         for i in range(len(dataArr_plot)):      # this is a list of pandas objects, in contrast to dataArr (single pandas object)
             dataArr_plot[i] = dataArr_plot[i].drop(columns=key)
 keys = dataArr.keys()   # renew key array after dropping columns
-<<<<<<< HEAD
 # endregion
 
 # region process data to normalized training and testing sets
-=======
-#endregion
-
-#region process data to normalized training and testing sets
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 
 # save max, min in dataframe to normalise and de-normalise
 normparams = pd.DataFrame(0., index=['max', 'min'], columns=keys)
@@ -172,15 +137,9 @@ train, test = dataArr_norm, dataArr_plot_norm
 # creation of separate data arrays for in and outputs
 train_in, train_out, test_in, test_out = train[keys_in], train[keys_out], test[keys_in], test[keys_out]
 n_inputs, n_outputs = train_in.shape[1], train_out.shape[1]         # extract amount of in and outputs of the network
-<<<<<<< HEAD
 # endregion
 
 # region define and train the network
-=======
-#endregion
-
-#region define and train the network
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 toc = time.time()
 print('Preprocessing finished at T = ', toc-tic)
 # assemble network
@@ -191,15 +150,9 @@ network = compile_network(network_geometry, set_optim=optimFunc, set_floss=lossF
 history = network.fit(train_in, train_out, epochs=n_epochs, batch_size=n_batch, validation_data=(test_in, test_out))
 toc = time.time()
 print('NN training finished at T = ', toc-tic)
-<<<<<<< HEAD
 # endregion
 
 # region evaluate network performance
-=======
-#endregion
-
-#region evaluate network performance
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 score_train = np.array(network.evaluate(train_in, train_out, batch_size=n_batch))[1]
 score_test = np.array( network.evaluate(test_in, test_out, batch_size=n_batch))[1]
 print("Training accuracy: ", 100.*score_train, " %")
@@ -207,18 +160,12 @@ print("Testing accuracy: ", 100.*score_test, " %")
 
 # summarize history for accuracy
 sample_rate = 20
-<<<<<<< HEAD
 plt.plot(np.arange(1,n_epochs+1,sample_rate), history.history['accuracy'][::sample_rate], lw=1)
 plt.plot(np.arange(1,n_epochs+1,sample_rate), history.history['val_accuracy'][::sample_rate], lw=1)
-=======
-plt.plot(np.arange(1,n_epochs+1,sample_rate), history.history['acc'][::sample_rate], lw=1)
-plt.plot(np.arange(1,n_epochs+1,sample_rate), history.history['val_acc'][::sample_rate], lw=1)
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 plt.title('model accuracy')
 plt.ylim([0,1])
 plt.ylabel('accuracy')
 plt.xlabel('epoch')
-<<<<<<< HEAD
 plt.legend(['train', 'test'])  # loc='upper left'
 plt.show()
 
@@ -226,15 +173,6 @@ plot_network(network)
 # endregion
 
 # region evaluate network by plotting the test data set
-=======
-plt.legend(['train', 'test']) #loc='upper left'
-plt.show()
-
-plot_network(network)
-#endregion
-
-#region evaluate network by plotting the test data set
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 for i in range(len(dataArr_plot)):
 
     # region reconstruct stress-strain based on NN
@@ -268,15 +206,9 @@ for i in range(len(dataArr_plot)):
     dataArr_recon = normalise_data(dataArr_recon, normparams, deNorm = True)
     toc = time.time()
 
-<<<<<<< HEAD
     # endregion
 
     # region plot stress-strain curves
-=======
-    #endregion
-
-    #region plot stress-strain curves
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
     tableau = load_plotColors()
     eps1, eps2, eps12 = epsMax
     ticks_strain = np.linspace(0., 0.02,5)
@@ -327,26 +259,14 @@ for i in range(len(dataArr_plot)):
     # f.close()
     # np.savetxt(fname, dataArr_recon, delimiter=',',
     #            header=np.array2string(keyarr, max_line_width=1e6, separator=',').strip('[]'))
-<<<<<<< HEAD
     # endregion
 # endregion
-=======
-    #endregion
-#endregion
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 
 
 print(learn_rate, decay, eps)
 print(layer_def)
 
-<<<<<<< HEAD
 if 'y' in input('make UMAT? (y/n)'):
     createUMAT(umat_fname, material_name, network, normparams, 3)
     toc = time.time()
     print('UMAT constructed with file name: "{}" at T = '.format(umat_fname,i + 1), toc - tic)
-=======
-# if 'y' in input('make UMAT? (y/n)'):
-#     createUMAT(umat_fname, material_name, network, normparams, 3)
-#     toc = time.time()
-#     print('UMAT constructed with file name: "{}" at T = '.format(umat_fname,i + 1), toc - tic)
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8

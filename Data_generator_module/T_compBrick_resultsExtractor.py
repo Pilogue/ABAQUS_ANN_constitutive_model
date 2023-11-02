@@ -11,20 +11,12 @@ odbName = os.getcwd()+'\\'+jobname+'.odb'
 odbObject = session.openOdb(name=odbName)
 odbInstance = odbObject.rootAssembly.instances['Part Instance']
 
-<<<<<<< HEAD
 # region analyse dimensions through the jobname
-=======
-#region analyse dimensions through the jobname
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 locL, locW, locD = jobname.find('L'), jobname.find('W'), jobname.find('D')      # find key letters indicating length, width, depth
 dimLst, j = ['', '', ''], 0
 for loc in [locL, locW, locD]:
     current, i, num = jobname[loc+1], 2, []   # initialise loop parameters. current (currently considered string entry),
-<<<<<<< HEAD
                                               # i (index of current string entry), num (list of valid numbers)
-=======
-                                              #  i (index of current string entry), num (list of valid numbers)
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
     while current != '_':           # find how many numbers there are after each letter
         num.append(current)
         current = jobname[loc+i]
@@ -34,30 +26,18 @@ for loc in [locL, locW, locD]:
         dimLst[j] = int(str(dimLst[j])+k)
     j += 1
 length, width, depth = [float(i) for i in dimLst]
-<<<<<<< HEAD
 # endregion
 
 # region plot deformed state
-=======
-#endregion
-
-#region plot deformed state
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 viewport_deformed = session.viewports['Viewport: 1']
 viewport_deformed.setValues(displayedObject=odbObject)
 viewport_deformed.odbDisplay.display.setValues(plotState=(UNDEFORMED, DEFORMED, ))
 # viewport_deformed.odbDisplay.commonOptions.setValues(nodeLabels=ON)
 # viewport_deformed.odbDisplay.commonOptions.setValues(elemLabels=ON)
 # viewport_deformed.setValues(origin=(0.0, 0.0))
-<<<<<<< HEAD
 # endregion
 
 # region label relevant node sets
-=======
-#endregion
-
-#region label relevant node sets
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 setBottom   = odbObject.rootAssembly.nodeSets['EDGE_BOTTOM']
 setLeft     = odbObject.rootAssembly.nodeSets['EDGE_LEFT']
 setTop      = odbObject.rootAssembly.nodeSets['EDGE_TOP']
@@ -70,11 +50,7 @@ nodeBottom_L = [i for i in range(len(setBottom.nodes[0])) if setBottom.nodes[0][
 nodeBottom_R = [i for i in range(len(setBottom.nodes[0])) if setBottom.nodes[0][i].coordinates[0] == width][0]
 nodeLeft_B   = [i for i in range(len(setLeft.nodes[0])) if setLeft.nodes[0][i].coordinates[1] == 0.][0]
 nodeLeft_T   = [i for i in range(len(setLeft.nodes[0])) if setLeft.nodes[0][i].coordinates[1] == length][0]
-<<<<<<< HEAD
 # endregion
-=======
-#endregion
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 
 
 # create multiple instances of simulation with different increments
@@ -145,8 +121,4 @@ for multiplier in dt_multipliers:
     reportFile.write(reportTitle+'\n')
     np.savetxt(reportFile, dataArr, delimiter = ',')
     reportFile.close()
-<<<<<<< HEAD
 # endregion
-=======
-#endregion
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8

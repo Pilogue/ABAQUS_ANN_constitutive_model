@@ -31,11 +31,7 @@ else:
     currentModel.Material(name='SteelBoyang')
     currentModel.materials['SteelBoyang'].Elastic(table=((210000.0, 0.28),))
     currentModel.materials['SteelBoyang'].Plastic(table=((200.2, 0.), (246.0, 0.0235), (294.0, 0.0474), (374.0, 0.0935),
-<<<<<<< HEAD
                                                          (437.0, 0.1377), (480.0, 0.1800)))
-=======
-                                                        (437.0, 0.1377), (480.0, 0.1800)))
->>>>>>> 36ce959f94d98d62a23b302dac25adef31a40ac8
 
     currentModel.Material(name='alu6061')
     currentModel.materials['alu6061'].Elastic(table=((68.9e3, 0.3),))
