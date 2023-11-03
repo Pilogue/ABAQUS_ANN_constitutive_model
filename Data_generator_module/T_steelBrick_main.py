@@ -45,7 +45,6 @@ lengths = [10]  # lengths of panel to be considered
 widths = [10]  # widths of panel to be considered
 depths = [1]  # depths of panel to be considered
 
-# 为什么minstress_2和maxstress_2在50-51行备注里是方向1的加载步，而65行备注里又变成了方向2的？但是根据运行结果，2对应的就是方向2--y方向
 
 minstress_2 = 450.  # [MPa] Minimum loading step in direction 1 to consider in creating the data set
 maxstress_2 = 450.  # [MPa] Maximum loading step in direction 1 to consider in creating the data set
